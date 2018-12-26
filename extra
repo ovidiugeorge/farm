@@ -33,3 +33,69 @@ insert into product values (24,'http://placehold.it/700x400','Lorem ipsum dolor 
 
 select * from product;
 
+
+
+use farm;
+
+
+
+create table category  (
+
+  idcateg int primary key not null,
+  name varchar(500)
+
+);
+
+create table user  (
+
+  iduser int primary key not null,
+  name varchar(500),
+  password varchar(500)
+
+);
+
+create table product (
+
+  idprod int primary key not null,
+  path TEXT not null ,
+  description TEXT not null ,
+  idcateg int not null,
+  name TEXT not null ,
+  value double not null,
+  FOREIGN KEY (idcateg) REFERENCES category(idcateg)
+
+);
+
+
+create table orders (
+
+  idorder int primary key not null,
+  iduser int not null ,
+  total double ,
+  FOREIGN KEY (iduser) REFERENCES user(iduser)
+
+);
+
+create table sells (
+
+  idorder int not null,
+  idprod int not null ,
+  FOREIGN KEY (idprod) REFERENCES product(idprod)
+
+);
+
+insert into category values (1,'aaa');
+insert into category values (2,'bbb');
+insert into category values (3,'ccc');
+insert into category values (4,'ddd');
+
+create procedure dalytest()
+begin
+  select idprod,
+         name,
+        (select count(*) from sells where idprod =product.idprod group by idprod) as orders,
+        (select count(*) from sells where idprod =product.idprod group by idprod) * 25 * product.value / 100 as profit
+  from product;
+end
+
+call dalytest

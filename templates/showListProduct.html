@@ -1,0 +1,69 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<div class="container">
+    <div class="card">
+        <table class="table table-hover shopping-cart-wrap">
+            <thead class="text-muted">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" width="120">Quantity</th>
+                <th scope="col" width="120">Price</th>
+                <th scope="col" width="200" class="text-right">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+
+            {% for key, message in products.items() %}
+
+            <tr>
+                <td>
+                    <figure class="media">
+                        <div class="img-wrap"><img src= {{message[1]}} class="img-thumbnail img-sm"></div>
+                        <figcaption class="media-body">
+                            <h6 class="title text-truncate"> {{message[4]}} </h6>
+                            <dl class="param param-inline small">
+                                <dt>Description:  </dt>
+                                <dd> {{message[2]}}</dd>
+                            </dl>
+
+                        </figcaption>
+                    </figure>
+                </td>
+                <td>
+                 <p>1<p>
+                </td>
+                <td>
+                    <div class="price-wrap">
+                        <var class="price">USD  {{message[5]}}</var>
+
+                    </div> <!-- price-wrap .// -->
+                </td>
+                <td class="text-right">
+                    <a href="/remove?number={{key}}" class="btn btn-outline-danger"> X Remove</a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+        <div>
+            <a style="font-size: 200%">Total: USD {{total}}</a>
+            <p align="center">
+                <a href="/checkout" style="font-size: 200%; border-color:red ; color: #0b2e13;" class="btn btn-outline-danger">Buy</a>
+                <a href="/" style="font-size: 200%; border-color:red ; color: #0b2e13;" class="btn btn-outline-danger">Continue</a>
+            </p>
+        </div>
+    </div><!-- card.// -->
+</div>
+
+<!--container end.//-->
+
